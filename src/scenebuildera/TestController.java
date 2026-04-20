@@ -42,6 +42,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.scene.control.CheckMenuItem;
 
 /**
  *
@@ -69,10 +70,13 @@ public class TestController implements Initializable {
 
     @FXML
     private RadioButton single;
+    
     @FXML
     private RadioButton married;
+    
     @FXML
     private RadioButton divorced;
+    
     @FXML
     private ToggleGroup tg;
 
@@ -86,13 +90,16 @@ public class TestController implements Initializable {
 
     @FXML
     private Button addSkill;
+    
     @FXML
     private Button removeSkill;
 
     @FXML
     private Button uploadImage;
+    
     @FXML
     private Button uploadCoverLetter;
+    
     @FXML
     private Button save;
 
@@ -110,21 +117,40 @@ public class TestController implements Initializable {
 
     @FXML
     private RadioMenuItem arialMenu;
+    
     @FXML
     private RadioMenuItem timesMenu;
+    
     @FXML
     private RadioMenuItem sansMenu;
+    
     @FXML
     private ToggleGroup tg2;
 
     @FXML
     private RadioMenuItem smallMenu;
+    
     @FXML
     private RadioMenuItem mediumMenu;
+    
     @FXML
     private RadioMenuItem largeMenu;
+    
     @FXML
     private ToggleGroup tg3;
+    
+    @FXML
+    private CheckMenuItem boldMenu;
+    
+    @FXML
+    private CheckMenuItem italicMenu;
+    
+    @FXML
+    private javafx.scene.layout.HBox mainContent;
+    
+    @FXML
+    private javafx.scene.layout.BorderPane mainBorderPane;
+    
 
     File selectedImageFile;
 
@@ -170,9 +196,11 @@ public class TestController implements Initializable {
 
         textArea.setStyle("-fx-font-size:12px;");
 
-        colorPicker.setOnAction(e -> {
-            rootPane.setStyle("-fx-background-color: " + toRgbString(colorPicker.getValue()) + ";");
-        });
+        if (colorPicker != null && mainBorderPane != null) {
+    colorPicker.setOnAction(e -> {
+        mainBorderPane.setStyle("-fx-background-color: " + toRgbString(colorPicker.getValue()) + ";");
+    });
+}
     }
 
     @FXML
@@ -183,7 +211,7 @@ public class TestController implements Initializable {
     @FXML
     private void aboutHandle(ActionEvent event) {
         showAlert("information", "About", "Job Application System",
-                "Application Name: Job Application System\nPurpose: Apply for jobs through desktop interface\nDeveloper: Aya Alharazin");
+                "Application Name: Job Application System\nPurpose: Apply for jobs through desktop interface\nDeveloper: Doaa Raed Shafout");
     }
 
     @FXML
@@ -285,7 +313,9 @@ public class TestController implements Initializable {
 
             String fileName = fullName.getText().trim().replaceAll("\\s+", "_") + "_" + num + ".txt";
 
-            try (PrintWriter pr = new PrintWriter(new FileWriter(fileName))) {
+            String path = System.getProperty("user.dir") + File.separator + fileName;
+
+            try (PrintWriter pr = new PrintWriter(new FileWriter(path))) {
 
                 pr.println("Full Name: " + fullName.getText());
                 pr.println("Address: " + address.getText());
@@ -311,24 +341,50 @@ public class TestController implements Initializable {
 
     @FXML
     private void fontFamilyHandle(ActionEvent event) {
-        if (arialMenu.isSelected()) {
+        if (rootPane == null) {
+            return;
+        }
+
+        if (arialMenu != null && arialMenu.isSelected()) {
             rootPane.setStyle(rootPane.getStyle() + "-fx-font-family: Arial;");
-        } else if (timesMenu.isSelected()) {
+        } else if (timesMenu != null && timesMenu.isSelected()) {
             rootPane.setStyle(rootPane.getStyle() + "-fx-font-family: 'Times New Roman';");
-        } else if (sansMenu.isSelected()) {
-            rootPane.setStyle(rootPane.getStyle() + "-fx-font-family: 'SansSerif';");
+        } else if (sansMenu != null && sansMenu.isSelected()) {
+            rootPane.setStyle(rootPane.getStyle() + "-fx-font-family: SansSerif;");
         }
     }
 
     @FXML
     private void fontSizeHandle(ActionEvent event) {
-        if (smallMenu.isSelected()) {
+        if (rootPane == null) {
+            return;
+        }
+
+        if (smallMenu != null && smallMenu.isSelected()) {
             rootPane.setStyle(rootPane.getStyle() + "-fx-font-size: 12px;");
-        } else if (mediumMenu.isSelected()) {
+        } else if (mediumMenu != null && mediumMenu.isSelected()) {
             rootPane.setStyle(rootPane.getStyle() + "-fx-font-size: 16px;");
-        } else if (largeMenu.isSelected()) {
+        } else if (largeMenu != null && largeMenu.isSelected()) {
             rootPane.setStyle(rootPane.getStyle() + "-fx-font-size: 20px;");
         }
+    }
+
+    @FXML
+    private void fontStyleHandle(ActionEvent event) {
+        String weight = "normal";
+        String style = "normal";
+
+        if (boldMenu != null && boldMenu.isSelected()) {
+            weight = "bold";
+        }
+
+        if (italicMenu != null && italicMenu.isSelected()) {
+            style = "italic";
+        }
+
+        rootPane.setStyle(rootPane.getStyle()
+                + "-fx-font-weight: " + weight + ";"
+                + "-fx-font-style: " + style + ";");
     }
 
     public boolean validate() {

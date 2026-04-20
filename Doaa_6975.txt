@@ -1,0 +1,22 @@
+Full Name: Doaa
+Address: Gaza
+Phone Number: 0599637035
+Marital Status: Single
+Birthdate: 2002-09-18
+Selected Skills: [Java]
+Image Path: C:\Users\PC\Downloads\sami.jpg
+Cover Letter:
+هلا انا نسخت كود ال fxml 
+هاد كودي 
+
+وهاد كود الاستاذ كيف الطريقة الصحيحة لاقدر اربط شغل الاستاذ fxml و ال css ةانا مش ناسخة غير الاكواد من الاستاذ 
+وما اشتغلت ع الscene ف بدي اربط شغلي با scene buiklder, code , css
+
+
+هاد هو كود الاستاذ
+
+
+
+
+وشو  سبب انو بيظهرلي خطا هان 
+
